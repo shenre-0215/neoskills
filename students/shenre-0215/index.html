@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ============================================================
+       🏷️  页面标题 — 直接改引号里的文字
+       ============================================================ -->
+  <title>申淑博 · 从颅内宇宙，到一砖一瓦</title>
+
+  <!-- 字体：Noto Serif SC（正文）+ Caveat（手写英文/数字） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       🎨  配色变量 — 在这里统一改颜色
+       --paper     : 整体背景（旧纸色）
+       --ink       : 主字色
+       --accent    : 强调色（暖棕，用于下划线/标签/细条）
+       --card-bg   : 卡片背景
+       --border    : 边框色
+       ============================================================ */
+    :root {
+      --paper:    #f7f3ec;
+      --ink:      #2e2a24;
+      --accent:   #b0875a;
+      --card-bg:  #fdfaf5;
+      --border:   #d9cfc0;
+      --muted:    #8c8070;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      /* 淡纹理：极细点阵 */
+      background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+
+    /* ────────── 主容器 ────────── */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px 120px;
+    }
+
+    /* ============================================================
+       🦸  HERO — 顶部大标题区
+       修改：.hero-title 里的文字
+       ============================================================ */
+    .hero {
+      padding: 100px 0 64px;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Caveat', cursive;
+      font-size: 16px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 6vw, 54px);
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--ink);
+      position: relative;
+      display: inline-block;
+    }
+
+    /* 标题底部手绘下划线 */
+    .hero-title::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      bottom: -6px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      opacity: 0.7;
+      transform: rotate(-0.5deg);
+    }
+
+    .hero-sub {
+      margin-top: 28px;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 440px;
+    }
+
+    /* ────────── 通用分节标题 ────────── */
+    .section {
+      margin-top: 72px;
+    }
+
+    .section-label {
+      font-family: 'Caveat', cursive;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* ============================================================
+       📌  工位区块 — 便签卡片网格
+       修改：.note 里的标题(.note-title)和内容(.note-body)文字
+       ============================================================ */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .note {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 22px 22px;
+      position: relative;
+      /* 左侧细条 */
+      border-left: 3px solid var(--accent);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .note:hover {
+      box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    /* 占满两列的宽便签 */
+    .note.wide {
+      grid-column: span 2;
+    }
+
+    .note-title {
+      font-family: 'Caveat', cursive;
+      font-size: 15px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .note-body {
+      font-size: 14px;
+      line-height: 1.85;
+      color: var(--ink);
+    }
+
+    .note-body li {
+      list-style: none;
+      padding: 3px 0;
+    }
+
+    .note-body li::before {
+      content: '— ';
+      color: var(--muted);
+    }
+
+    /* ── 手记日期行 ── */
+    .note-date {
+      font-family: 'Caveat', cursive;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .note-p {
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--ink);
+      margin-top: 6px;
+    }
+
+    /* ── 实验台项目卡 ── */
+    .project {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 20px 22px 22px;
+      margin-top: 14px;
+    }
+
+    .project-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .project-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .project-status {
+      font-size: 12px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      border: 1px solid;
+      letter-spacing: 0.05em;
+    }
+
+    .status-running  { color: #6a9e7a; border-color: #6a9e7a; background: #f0faf4; }
+    .status-paused   { color: #c49a3c; border-color: #c49a3c; background: #fdf8ec; }
+    .status-new       { color: #8c8070; border-color: #d9cfc0; background: #f9f7f3; }
+
+    .project-goal {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.7;
+      margin-top: 6px;
+    }
+
+    .project-action {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 5px;
+      line-height: 1.6;
+    }
+
+    /* ── 原料库分类 ── */
+    .material-group {
+      margin-top: 18px;
+    }
+
+    .material-group:first-child { margin-top: 0; }
+
+    .material-group-title {
+      font-family: 'Caveat', cursive;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+
+    .material-item {
+      font-size: 14px;
+      line-height: 1.85;
+      color: var(--ink);
+      margin-bottom: 10px;
+      padding-left: 12px;
+      border-left: 2px solid var(--border);
+    }
+
+    .material-item strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .material-item .comment {
+      color: var(--muted);
+      font-size: 13px;
+      display: block;
+      margin-top: 1px;
+    }
+
+    .material-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .mini-tag {
+      font-size: 13px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2px 12px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================================
+       👤  关于区块
+       修改：.about-text 里的段落文字
+       ============================================================ */
+    .about-text {
+      font-size: 15px;
+      line-height: 2;
+      color: var(--ink);
+    }
+
+    .about-text p + p {
+      margin-top: 1.2em;
+    }
+
+    .about-text em {
+      font-style: normal;
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       📂  空框架板块（手记 / 实验台 / 原料库）
+       这三块暂时是空的，等你有内容再往里填
+       ============================================================ */
+    .empty-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 28px 28px 32px;
+      margin-top: 16px;
+    }
+
+    .empty-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .empty-placeholder {
+      font-size: 13px;
+      color: var(--border);
+      font-family: 'Caveat', cursive;
+      font-size: 15px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ────────── 细分割线 ────────── */
+    .hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 64px 0;
+      opacity: 0.6;
+    }
+
+    /* ============================================================
+       📬  底部联系区
+       修改：.contact-email 里的邮箱地址
+              .contact-links 里的社交链接文字
+       ============================================================ */
+    .contact-block {
+      padding: 8px 0 0;
+    }
+
+    .contact-block p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--ink);
+      text-decoration: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 11px 18px;
+      transition: background 0.2s;
+    }
+
+    .contact-item:hover {
+      background: #f0e8da;
+    }
+
+    .contact-icon {
+      width: 18px;
+      text-align: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ────────── 页脚签名 ────────── */
+    .footer {
+      margin-top: 80px;
+      padding-bottom: 40px;
+      text-align: center;
+      font-family: 'Caveat', cursive;
+      font-size: 15px;
+      color: var(--border);
+      letter-spacing: 0.08em;
+    }
+
+    /* ────────── 滚动淡入 ────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ────────── 响应式 ────────── */
+    @media (max-width: 520px) {
+      .hero { padding: 72px 0 48px; }
+      .notes-grid { grid-template-columns: 1fr; }
+      .note.wide { grid-column: span 1; }
+      .container { padding: 0 18px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ============================================================
+       🦸  HERO
+       ✏️  修改：把"从颅内宇宙，到一砖一瓦"换成你想要的大标题
+               把副文案换成你想展示的一句话
+       ============================================================ -->
+  <header class="hero reveal">
+    <div class="hero-eyebrow">申淑博 · Shen Shubo</div>
+    <h1 class="hero-title">从颅内宇宙，<br>到一砖一瓦</h1>
+    <p class="hero-sub">
+      工商管理 / 心理学 / AI<br>
+      正在把颅内的碎片，一块一块垒成可见的东西
+    </p>
+  </header>
+
+  <!-- ============================================================
+       📌  工位 — 当前在做/在想/在看
+       ✏️  修改：每个 .note 里的列表项
+               如需新增便签，复制一个 <div class="note"> ... </div>
+       ============================================================ -->
+  <section class="section reveal">
+    <div class="section-label">工位 / Studio</div>
+
+    <div class="notes-grid">
+
+      <!-- 便签 1：在看的电影 -->
+      <div class="note">
+        <div class="note-title">📽  最近在看</div>
+        <ul class="note-body">
+          <li>《三人行》</li>
+          <li>《年少有为》</li>
+        </ul>
+      </div>
+
+      <!-- 便签 2：在听的音乐 -->
+      <div class="note">
+        <div class="note-title">🎵  在循环</div>
+        <ul class="note-body">
+          <li>苏运莹《我》</li>
+          <li>单依纯《假如我们还爱着》</li>
+          <li>陈奕迅《葡萄成熟时》</li>
+        </ul>
+      </div>
+
+      <!-- 便签 3：在想的事（宽，占两列） -->
+      <div class="note wide">
+        <div class="note-title">🌀  在想 / 在做</div>
+        <ul class="note-body">
+          <li>磨抖音账号的方向和第一条文案</li>
+          <li>看优质 AI 博主的视频 / 播客</li>
+          <li>边做边学，跑通一个 AI 小项目</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- ============================================================
+       👤  关于
+       ✏️  修改：.about-text 里的段落内容
+               <em> 标签包裹的文字会显示为强调色（暖棕）
+       ============================================================ -->
+  <section class="section reveal">
+    <div class="section-label">关于 / About</div>
+
+    <div class="about-text">
+      <p>
+        大三，工商管理，<em>跨专业</em>在学心理学与 AI。
+        我对人是怎么理解自己这件事，有近乎执念的好奇——
+        从自我效能感，到人怎么做决策，到一个人的行动力从哪里来。
+      </p>
+      <p>
+        兴趣很杂：深度影视、演唱、哲学、《易经》《道德经》——
+        表面上像乱炖，但对我来说都指向同一个问题：
+        <em>一个人怎么成为他自己？</em>
+      </p>
+      <p>
+        这个网页是我的<em>开放工作室</em>。
+        没有光鲜的成果展示，只有正在发生的思考和进行中的实验。
+      </p>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- ============================================================
+       📓  手记
+       ✏️  有文章要发时，把"空框架"换成真实内容卡片
+           参考格式：
+           <div class="note">
+             <div class="note-title">2025-05-01</div>
+             <div class="note-body">文章标题或摘要……</div>
+           </div>
+       ============================================================ -->
+  <section class="section reveal">
+    <div class="section-label">手记 / Notes</div>
+
+    <!-- 手记 1 -->
+    <div class="note wide">
+      <div class="note-date">2026-04 · 观剧</div>
+      <div class="note-p">
+        看《年少有为》，有句台词大概是"我怕配不上自己受的苦"。愣了很久。<br>
+        人在还没得到的时候，其实已经在害怕失去了——这不就是《易经》说的"亢龙有悔"吗？
+        还没飞起来，就已经在高位上后悔了。<br>
+        我在想，我是不是也经常这样：还没出发，就已经在脑内排演了失败。
+      </div>
+    </div>
+
+    <!-- 手记 2 -->
+    <div class="note wide">
+      <div class="note-date">2026-04 · 听歌</div>
+      <div class="note-p">
+        苏运莹的《我》里有句"我就是我，不一样的焰火"——听起来像鸡汤，
+        但她的唱法让这句话变成了真正的诘问。<br>
+        陈奕迅的《葡萄成熟时》刚好相反：等一颗葡萄熟，等一个人回心转意，
+        唱的是"静候地爱"——承认不确定，但不松手。<br>
+        一个是挣脱，一个是等待，看似相反，但好像都在说同一件事：先搞清楚"我"是谁。
+      </div>
+    </div>
+
+    <!-- 手记 3 -->
+    <div class="note wide">
+      <div class="note-date">2026-04 · 行动</div>
+      <div class="note-p">
+        我最近发现一个问题：我脑子里有一艘巨轮——哲学、心理学、AI、易经……
+        什么都能聊，什么都有框架。但转头一看，甲板上空空如也。<br>
+        想太多，做太少。发一条抖音要磨三天，因为总想"想清楚再动"。
+        这次逼自己：先做第一条，哪怕很粗糙。先让轮子动起来，
+        方向盘可以边走边调。
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       🧪  实验台
+       ✏️  放进行中的项目、原型、想法草稿
+       ============================================================ -->
+  <section class="section reveal">
+    <div class="section-label">实验台 / Lab</div>
+
+    <!-- 项目 1 -->
+    <div class="project">
+      <div class="project-header">
+        <span class="project-name">抖音内容创作</span>
+        <span class="project-status status-running">● 进行中</span>
+      </div>
+      <div class="project-goal">
+        探索自己的表达方向，产出第一条有个人风格的短视频。
+      </div>
+      <div class="project-action">
+        当前：反复磨第一条视频的文案，想找到一个既真实又不过度自怜的开场角度。
+      </div>
+    </div>
+
+    <!-- 项目 2 -->
+    <div class="project">
+      <div class="project-header">
+        <span class="project-name">AI 学习 + 小项目实战</span>
+        <span class="project-status status-running">● 进行中</span>
+      </div>
+      <div class="project-goal">
+        不只学概念，跑通一个从想法到可运行作品的完整流程。
+      </div>
+      <div class="project-action">
+        当前：跟练 WorkBuddy 生态里的项目，在 Elite20 训练营里跑 K-S-T-A-R 循环。
+      </div>
+    </div>
+
+    <!-- 项目 3 -->
+    <div class="project">
+      <div class="project-header">
+        <span class="project-name">心理赋权工具原型</span>
+        <span class="project-status status-new">○ 想尝试</span>
+      </div>
+      <div class="project-goal">
+        把"自我效能感"这个心理学概念，做成一个普通人能用的轻量工具。
+      </div>
+      <div class="project-action">
+        当前：还在读文献、画原型图，等方向更清晰再动手。
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       📦  原料库
+       ✏️  放书单、片单、工具清单、参考资料等
+       ============================================================ -->
+  <section class="section reveal">
+    <div class="section-label">原料库 / Materials</div>
+
+    <!-- 剧/影 -->
+    <div class="material-group">
+      <div class="material-group-title">🎬  剧 / 影</div>
+      <div class="material-item">
+        <strong>《心灵奇旅》</strong>
+        <span class="comment">"火花"不是目标，是愿意活着的那一刻。——看完平静了很久</span>
+      </div>
+      <div class="material-item">
+        <strong>《生命树》</strong>
+        <span class="comment">关于原谅与追溯，节奏很慢，但后劲很大</span>
+      </div>
+      <div class="material-item">
+        <strong>《滤镜》</strong>
+        <span class="comment">用悬疑包装外貌焦虑，有意思的社会观察</span>
+      </div>
+    </div>
+
+    <!-- 歌单 -->
+    <div class="material-group">
+      <div class="material-group-title">🎵  歌单</div>
+      <div class="material-item">
+        <strong>苏运莹《我》</strong>
+        <span class="comment">自我认同的诘问，不是口号，是真正的挣扎</span>
+      </div>
+      <div class="material-item">
+        <strong>单依纯《假如我们还爱着》</strong>
+        <span class="comment">遗憾里的温柔，不煽情但很疼</span>
+      </div>
+      <div class="material-item">
+        <strong>陈奕迅《葡萄成熟时》</strong>
+        <span class="comment">等待哲学的极致表达——静候，不是躺平</span>
+      </div>
+      <div class="material-item">
+        <strong>其他在发掘</strong>
+        <span class="comment">想找到更多能唱进心里又不烂大街的歌</span>
+      </div>
+    </div>
+
+    <!-- 书单 -->
+    <div class="material-group">
+      <div class="material-group-title">📚  书单</div>
+      <div class="material-item">
+        <strong>《被讨厌的勇气》</strong>
+        <span class="comment">阿德勒心理学，正在读第二遍。岸见一郎写得很平实，像在对话</span>
+      </div>
+      <div class="material-item">
+        <strong>《易经》《道德经》</strong>
+        <span class="comment">反复读，像查字典，每次心境不同，注解就不同</span>
+      </div>
+    </div>
+
+    <!-- 想学的乐器 -->
+    <div class="material-group">
+      <div class="material-group-title">🎹  想学的乐器</div>
+      <div class="material-tags">
+        <span class="mini-tag">○ 架子鼓</span>
+        <span class="mini-tag">○ 键盘 / 钢琴</span>
+      </div>
+      <div class="material-item" style="margin-top:10px; font-size:13px; color:var(--muted);">
+        还没开始，但已经在想了。节奏感和旋律感都想补。
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <!-- ============================================================
+       📬  联系
+       ✏️  修改邮箱：把 .contact-item 里 "359005185@qq.com" 换掉
+           修改 GitHub：把 "shenre-0215" 换成你的用户名
+           如需去掉某行，直接删除那个 <a class="contact-item"> ... </a>
+       ============================================================ -->
+  <section class="section reveal">
+    <div class="section-label">联系 / Contact</div>
+    <div class="contact-block">
+      <p>想聊心理学、AI、或者任何颅内正在折腾的东西，欢迎找我。</p>
+      <div class="contact-list">
+
+        <a class="contact-item" href="mailto:359005185@qq.com">
+          <span class="contact-icon">✉</span>
+          <span>359005185@qq.com</span>
+        </a>
+
+        <a class="contact-item" href="https://github.com/shenre-0215" target="_blank">
+          <span class="contact-icon">⌥</span>
+          <span>GitHub · shenre-0215</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────── 页脚 ────────── -->
+  <div class="footer">
+    正在建造中 · 2025
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // 滚动淡入
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    }),
+    { threshold: 0.08 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
